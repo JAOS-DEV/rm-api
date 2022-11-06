@@ -9,23 +9,29 @@ import { useQuery } from '@apollo/client';
 import Container from '@mui/system/Container';
 import Navbar from './components/Navbar/Navbar';
 import ContentGrid from './components/ContentGrid/ContentGrid';
-
-// App bar
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Character } from './components/Character/Character';
 
 function App() {
-  const { loading, error, data } = useQuery(GET_BULK_DATA);
-  console.log({ loading, error, data });
-
   return (
-    <>
+    <BrowserRouter>
       <Navbar />
       <Container
-        maxWidth="md"
-        style={{ padding: '20px', height: '100vh', display: 'flex', alignItems: 'flex-start', justifyContent: 'center', border: '1px solid black' }}
+        maxWidth="lg"
+        style={{
+          padding: '80px 10px',
+          height: '100%',
+          display: 'flex',
+          alignItems: 'flex-start',
+          justifyContent: 'center',
+        }}
       >
-        <ContentGrid />
+        <Routes>
+          <Route path="/" element={<ContentGrid />} />
+          <Route path=":id" element={<Character />} />
+        </Routes>
       </Container>
-    </>
+    </BrowserRouter>
   );
 }
 
